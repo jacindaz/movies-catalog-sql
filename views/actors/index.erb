@@ -11,6 +11,13 @@
 
     <h1><%= @title %></h1>
 
+    <ul>
+      <% @actors.each do |actor| %>
+        <li>
+          <%= actor["name"] %>
+        </li>
+      <% end %>
+    </ul>
 
   </body>
 
