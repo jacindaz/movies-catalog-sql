@@ -27,7 +27,7 @@ end
 
 get '/actors' do
   @title = "Actors page"
-  actors_query = "SELECT name FROM actors ORDER BY name ASC"
+  actors_query = "SELECT name FROM actors ORDER BY name ASC LIMIT 10"
 
   @actors = db_connection do |conn|
               conn.exec(actors_query)
@@ -47,6 +47,16 @@ end
 
 get '/movies' do
   @title = "Movies page"
+  movies_query = "SELECT movies.title,movies.year,movies.rating,genres.name AS genre,studios.name AS studio
+                  FROM movies
+                    JOIN studios ON movies.studio_id = studios.id
+                    JOIN genres ON movies.genre_id = genres.id
+                  ORDER BY movies.title ASC LIMIT 10"
+
+  @movies = db_connection do |conn|
+            conn.exec(movies_query)
+          end
+
   erb :'movies/index'
 end
 
