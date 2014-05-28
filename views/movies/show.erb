@@ -55,7 +55,13 @@
       <% @movies_info.each do |movie| %>
         <tr>
           <% movie.each do |key,value| %>
-            <% if (key == "actor") || (key == "role") %>
+            <% if key == "actor" %>
+              <td>
+                <a href="/actors/<%= movie["actor_id"] %>">
+                  <%= value %>
+                </a>
+              </td>
+            <% elsif key == "role" %>
               <td><%= value %></td>
             <% end %>
           <% end %>

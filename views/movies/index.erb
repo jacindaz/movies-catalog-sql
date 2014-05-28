@@ -21,33 +21,24 @@
       </div>
     </div>
 
-<!--     <% @movies.each do |movie| %>
-    <%= movie %>
-    <% end %> -->
-
   <table class="table table-hover">
+    <% @movies[0].each do |key,value| %>
+    <th>
+      <%= key.to_s.capitalize %>
+    </th>
+    <% end %>
 
-        <% @movies[0].each do |key,value| %>
-        <th>
-          <%= key.to_s.capitalize %>
-        </th>
-        <% end %>
-
-
-
-          <% @movies.each do |movie| %>
-          <tr>
-            <td><a href="/movies/<%= movie["id"] %>"><%= movie["title"] %></a></td>
-            <td><%= movie["year"] %></td>
-            <td><%= movie["rating"] %></td>
-            <td><%= movie["genre"] %></td>
-            <td><%= movie["studio"] %></td>
-          </tr>
-          <% end %>
-
-
-      </table>
-
+      <% @movies.each do |movie| %>
+      <tr>
+        <td><%= movie["id"] %></td>
+        <td><a href="/movies/<%= movie["id"] %>"><%= movie["title"] %></a></td>
+        <td><%= movie["year"] %></td>
+        <td><%= movie["rating"] %></td>
+        <td><%= movie["genre"] %></td>
+        <td><%= movie["studio"] %></td>
+      </tr>
+      <% end %>
+  </table>
 
   </body>
 </html>
