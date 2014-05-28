@@ -97,3 +97,10 @@ get '/movies/:id' do
   @title = "Movie"
   erb :'movies/show'
 end
+
+
+not_found do
+  puts 'Sorry! This page got lost.'
+  sleep(5)
+  redirect to('/')
+end
