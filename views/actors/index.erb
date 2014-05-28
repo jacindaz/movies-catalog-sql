@@ -22,12 +22,18 @@
       </div>
     </div>
 
+    <% @actors.each do |actor| %>
+    <%= actor %>
+    <% end %>
+    <br>
 
 
     <ul>
       <% @actors.each do |actor| %>
         <li>
-          <%= actor["name"] %>
+          <a href="/actors/<%= actor["id"] %>">
+            <%= actor["name"] %>
+          </a>
         </li>
       <% end %>
     </ul>

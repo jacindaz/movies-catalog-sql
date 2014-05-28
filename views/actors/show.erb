@@ -12,6 +12,7 @@
 
     <h1><%= @title %></h1>
 
+
     <div class="navbar">
       <div class="navbar-inner">
         <ul class="nav pull-left">
@@ -22,8 +23,11 @@
       </div>
     </div>
 
-
-
+    <ul>
+      <% @one_actor_hash.each do |key, value| %>
+        <li><strong><%= key.capitalize %>:</strong> <%= value %></li>
+      <% end %>
+    </ul>
 
   </body>
 
