@@ -16,13 +16,15 @@ test = [{"id"=>"15", "name"=>"Michael Stephenson", "title"=>"Troll 2", "characte
   {"id"=>"55", "name"=>"Michael Gambon", "title"=>"The Life Aquatic with Steve Zissou", "character"=>"Oseary Drakoulias"}]
 
 def return_actor_info(array_of_hashes, target_key, target_value)
+  actor_movies = []
   array_of_hashes.each do |nested_hash|
     if nested_hash[target_key] == target_value
-      puts "hash: #{nested_hash}"
-      return nested_hash
+      actor_movies << nested_hash
     end
   end
+  puts "Movies: #{actor_movies}"
+  return actor_movies
 end
-return_actor_info(test, "id", "34")
+return_actor_info(test, "id", "31")
 
 

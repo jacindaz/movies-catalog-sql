@@ -18,12 +18,13 @@ end
 
 
 def return_actor_info(array_of_hashes, target_key, target_value)
+  actor_movies = []
   array_of_hashes.each do |nested_hash|
     if nested_hash[target_key] == target_value
-      puts "hash: #{nested_hash}"
-      return nested_hash
+      actor_movies << nested_hash
     end
   end
+  return actor_movies
 end
 
 
@@ -58,8 +59,8 @@ get '/actors/:id' do
               conn.exec(actor_query)
             end
 
-  @one_actor_hash = return_actor_info(@actor_info, "id", @id)
-  @title = "#{@one_actor_hash["name"]}"
+  @actor_movies = return_actor_info(@actor_info, "id", @id)
+  @title = "#{@actor_movies[0]["name"]}"
 
   erb :'actors/show'
 end

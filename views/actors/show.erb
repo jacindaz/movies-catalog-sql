@@ -5,13 +5,11 @@
     <title><%= @title %></title>
     <link rel="stylesheet" href="/bootstrap.css">
     <link rel="stylesheet" href="/styles.css">
-
   </head>
 
   <body>
 
     <h1><%= @title %></h1>
-
 
     <div class="navbar">
       <div class="navbar-inner">
@@ -23,12 +21,29 @@
       </div>
     </div>
 
-    <ul>
-      <% @one_actor_hash.each do |key, value| %>
-        <li><strong><%= key.capitalize %>:</strong> <%= value %></li>
+    <%= @actor_movies[0] %>
+
+    <table class="table table-hover">
+      <% @actor_movies[0].each do |key,value| %>
+        <th><%= key.capitalize %></th>
       <% end %>
-    </ul>
+
+      <% @actor_movies.each do |movie_hash| %>
+        <tr>
+          <% movie_hash.each do |key,value| %>
+            <% if key == "movie" %>
+              <td>
+                <a href="/movies/<%= value %>">
+                  <%= value %>
+                </a>
+              </td>
+            <% else %>
+              <td><%= value %></td>
+            <% end %>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
 
   </body>
-
 </html>
