@@ -15,6 +15,18 @@ test = [{"id"=>"15", "name"=>"Michael Stephenson", "title"=>"Troll 2", "characte
   {"id"=>"53", "name"=>"Willem Dafoe", "title"=>"The Life Aquatic with Steve Zissou", "character"=>"Klaus Daimler"},
   {"id"=>"55", "name"=>"Michael Gambon", "title"=>"The Life Aquatic with Steve Zissou", "character"=>"Oseary Drakoulias"}]
 
+
+movies_test = [{"id"=>"880", "title"=>"*batteries not included", "year"=>"1987", "rating"=>"64", "genre"=>"Kids & Family", "studio"=>"Universal Pictures"},
+{"id"=>"948", "title"=>"10 Things I Hate About You", "year"=>"1999", "rating"=>"61", "genre"=>"Comedy", "studio"=>"Buena Vista Pictures"},
+{"id"=>"3204", "title"=>"10,000 B.C.", "year"=>"2008", "rating"=>"8", "genre"=>"Drama", "studio"=>"Warner Bros. Pictures"},
+{"id"=>"2872", "title"=>"10.5", "year"=>"2004", "rating"=>nil, "genre"=>"Drama", "studio"=>"LionsGate Entertainment"},
+{"id"=>"881", "title"=>"101 Dalmatians", "year"=>"1961", "rating"=>"97", "genre"=>"Animation", "studio"=>"Buena Vista"},
+{"id"=>"2364", "title"=>"101 Dalmatians", "year"=>"1996", "rating"=>"39", "genre"=>"Action & Adventure", "studio"=>"Buena Vista Pictures"},
+{"id"=>"1569", "title"=>"102 Dalmatians", "year"=>"2000", "rating"=>"31", "genre"=>"Comedy", "studio"=>"Buena Vista Pictures"},
+{"id"=>"2118", "title"=>"11-11-11", "year"=>"2011", "rating"=>"8", "genre"=>"Drama", "studio"=>"Rocket Releasing"},
+{"id"=>"3064", "title"=>"12 Angry Men", "year"=>"1997", "rating"=>"92", "genre"=>"Drama", "studio"=>"Orion Home Video"},
+{"id"=>"3366", "title"=>"12 Rounds", "year"=>"2009", "rating"=>"29", "genre"=>"Mystery & Suspense", "studio"=>"20th Century Fox"}]
+
 def return_actor_info(array_of_hashes, target_key, target_value)
   actor_movies = []
   array_of_hashes.each do |nested_hash|
@@ -25,6 +37,6 @@ def return_actor_info(array_of_hashes, target_key, target_value)
   puts "Movies: #{actor_movies}"
   return actor_movies
 end
-return_actor_info(test, "id", "31")
+return_actor_info(movies_test, "id", "881")
 
 

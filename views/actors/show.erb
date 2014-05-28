@@ -21,19 +21,21 @@
       </div>
     </div>
 
-    <%= @actor_movies[0] %>
+<!-- <% @actor_info.each do |info| %>
+<%= info %>
+<% end %> -->
 
     <table class="table table-hover">
-      <% @actor_movies[0].each do |key,value| %>
+      <% @actor_info[0].each do |key,value| %>
         <th><%= key.capitalize %></th>
       <% end %>
 
-      <% @actor_movies.each do |movie_hash| %>
+      <% @actor_info.each do |movie_hash| %>
         <tr>
           <% movie_hash.each do |key,value| %>
             <% if key == "movie" %>
               <td>
-                <a href="/movies/<%= value %>">
+                <a href="/movies/<%= movie_hash["movie_id"] %>">
                   <%= value %>
                 </a>
               </td>

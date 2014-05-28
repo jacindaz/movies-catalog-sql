@@ -21,6 +21,47 @@
       </div>
     </div>
 
+<!--      <ul>
+      <% @movies_info.each do |movie| %>
+        <li><%= movie %></li>
+      <% end %>
+    </ul> -->
+
+    <h3>Movie Information</h3>
+    <table class="table table-hover">
+      <% @movies_info[0].each do |key,value| %>
+        <tr>
+        <% if (key == "actor") || (key == "role") %>
+          <% next %>
+        <% else %>
+          <th><%= key.capitalize %></th>
+          <td><%= value %></td>
+        <% end %>
+      </tr>
+      <% end %>
+    </table>
+
+    <h3>Actors and Actresses</h3>
+    <table class="table table-hover">
+      <% @movies_info[0].each do |key,value| %>
+        <% if (key == "actor") || (key == "role") %>
+          <th>
+            <%= key.to_s.capitalize %>
+          </th>
+        <% end %>
+      <% end %>
+
+
+      <% @movies_info.each do |movie| %>
+        <tr>
+          <% movie.each do |key,value| %>
+            <% if (key == "actor") || (key == "role") %>
+              <td><%= value %></td>
+            <% end %>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
 
   </body>
 
