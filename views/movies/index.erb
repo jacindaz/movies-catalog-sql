@@ -1,4 +1,17 @@
+<!--ORDER BY buttons-->
+<div class="btn-group">
+  <a href="/movies?order=year">
+    <button type="button" class="btn btn-default">Order by Year</button>
+  </a>
+  <a href="/movies?order=rating">
+    <button type="button" class="btn btn-default">Order by Rating</button>
+  </a>
+  <a href="/movies?order=title">
+    <button type="button" class="btn btn-default">Order by Title</button>
+  </a>
+</div>
 
+<br>
 
   <table class="table table-hover">
     <% @movies[0].each do |key,value| %>

@@ -7,6 +7,7 @@
 
 <!--  <%= @movie_hash %> -->
 
+
  <img src="<%= @poster_url %>" class="movie_poster">
 
 
@@ -15,13 +16,9 @@
     <table class="table table-hover table_600px_width">
       <% @movies_info[0].each do |key,value| %>
         <tr>
-        <% if (key == "actor") || (key == "role") %>
-          <% next %>
-        <% else %>
           <th><%= key.capitalize %></th>
           <td><%= value %></td>
-        <% end %>
-      </tr>
+        </tr>
       <% end %>
     </table>
 

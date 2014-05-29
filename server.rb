@@ -75,11 +75,18 @@ end
 
 get '/movies' do
   @title = "Movies page"
+
+  if params[:order] == nil
+    @order = "title ASC"
+  else
+    @order = params[:order]
+  end
+
   movies_query = "SELECT movies.id,movies.title,movies.year,movies.rating,genres.name AS genre,studios.name AS studio
                   FROM movies
                     JOIN studios ON movies.studio_id = studios.id
                     JOIN genres ON movies.genre_id = genres.id
-                  ORDER BY movies.title ASC"
+                  ORDER BY movies.#{@order}"
 
   @movies = db_connection do |conn|
               conn.exec(movies_query)
