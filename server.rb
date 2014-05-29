@@ -76,10 +76,19 @@ end
 get '/movies' do
   @title = "Movies page"
 
-  if params[:order] == nil
+  case params[:order]
+  when nil
     @order = "title ASC"
-  else
+    @button_classes_title = "btn btn-default active"
+  when "year"
     @order = params[:order]
+    @button_classes_year = "btn btn-default active"
+  when "title"
+    @order = params[:order]
+    @button_classes_title = "btn btn-default active"
+  when "rating"
+    @order = params[:order]
+    @button_classes_rating = "btn btn-default active"
   end
 
   movies_query = "SELECT movies.id,movies.title,movies.year,movies.rating,genres.name AS genre,studios.name AS studio

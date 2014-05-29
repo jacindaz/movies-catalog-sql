@@ -1,15 +1,16 @@
 <!--ORDER BY buttons-->
 <div class="btn-group">
   <a href="/movies?order=year">
-    <button type="button" class="btn btn-default">Order by Year</button>
+    <button type="button" class="<%= @button_classes_year %>">Order by Year</button>
   </a>
   <a href="/movies?order=rating">
-    <button type="button" class="btn btn-default">Order by Rating</button>
+    <button type="button" class="<%= @button_classes_rating %>">Order by Rating</button>
   </a>
   <a href="/movies?order=title">
-    <button type="button" class="btn btn-default">Order by Title</button>
+    <button type="button" class="<%= @button_classes_title %>">Order by Title</button>
   </a>
 </div>
+
 
 <br>
 
