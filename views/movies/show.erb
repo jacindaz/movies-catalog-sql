@@ -6,10 +6,20 @@
     </ul> -->
 
 <!--  <%= @movie_hash %> -->
-
+<div class="right_side">
+  <img src="/rottentomatoes.png" class="rotten_tomates">
+  <table>
+    <tr><td class="td_spacing"><h4>Audience</h4></td>
+        <td class="td_spacing"><h4>Critic</h4></td>
+    </tr>
+    <tr>
+      <td><center><%= @rottentomatoes_audience %></center></td>
+      <td><center><%= @rottentomatoes_critic %></center></td>
+    </tr>
+  </table>
+</div>
 
  <img src="<%= @poster_url %>" class="movie_poster">
-
 
     <h3>Movie Information</h3>
 

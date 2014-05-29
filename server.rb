@@ -42,7 +42,7 @@ end
 
 get '/actors' do
   @title = "Actors page"
-  actors_query = "SELECT name,id FROM actors ORDER BY name ASC LIMIT 20"
+  actors_query = "SELECT name,id FROM actors ORDER BY name ASC"
 
   @actors = db_connection do |conn|
               conn.exec(actors_query)
@@ -79,17 +79,14 @@ get '/movies' do
   case params[:order]
   when nil
     @order = "title ASC"
-    @button_classes_title = "btn btn-default active"
-  when "year"
-    @order = params[:order]
-    @button_classes_year = "btn btn-default active"
-  when "title"
-    @order = params[:order]
-    @button_classes_title = "btn btn-default active"
   when "rating"
     @order = params[:order]
-    @button_classes_rating = "btn btn-default active"
+    @order = "#{@order} DESC"
+  else
+    @order = params[:order]
   end
+
+  @button_classes = "btn btn-default btn-success button_left_margin button_bottom_margin"
 
   movies_query = "SELECT movies.id,movies.title,movies.year,movies.rating,genres.name AS genre,studios.name AS studio
                   FROM movies
@@ -131,7 +128,9 @@ get '/movies/:id' do
 
   @title = "#{@movies_info[0]["movie"]}"
   @movie_hash = rotten_tomatoes_movie_hash(@title)
-  @poster_url = @movie_hash["movies"][0]["posters"]["original"]
+  @poster_url = @movie_hash["movies"][0]["posters"]["profile"]
+  @rottentomatoes_critic = @movie_hash["movies"][0]["ratings"]["critics_score"]
+  @rottentomatoes_audience = @movie_hash["movies"][0]["ratings"]["audience_score"]
 
   erb :'movies/show'
 end

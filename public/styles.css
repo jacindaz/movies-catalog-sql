@@ -15,8 +15,28 @@ body {
   width: 600px;
 }
 
+.button_right_margin { margin-right: 20px; }
+.button_left_margin { margin-left: 20px; }
+.button_bottom_margin { margin-bottom: 20px;}
+
 .movie_poster {
   float:left;
   height:280px;
   padding-right:50px;
+}
+
+.rotten_tomates {
+  margin-left: 20px;
+  margin-top:10px;
+  height: 100px;
+}
+
+.right_side {
+  width: 260px;
+  float: right;
+  padding: 20px;
+}
+
+.td_spacing {
+  padding: 10px 20px;
 }
