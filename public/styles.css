@@ -11,8 +11,8 @@ body {
   width: 300px;
 }
 
-.table_600px_width {
-  width: 600px;
+.table_500px_width {
+  width: 50%;
 }
 
 .button_right_margin { margin-right: 20px; }
@@ -21,7 +21,7 @@ body {
 
 .movie_poster {
   float:left;
-  height:280px;
+  width: 15%;
   padding-right:50px;
 }
 
@@ -38,5 +38,5 @@ body {
 }
 
 .td_spacing {
-  padding: 10px 20px;
+  padding: 10px 10px;
 }

@@ -79,7 +79,8 @@ get '/movies' do
   if params["query"] == nil
     @search_query = nil
   else
-    @search_query = "WHERE movies.title LIKE '%#{@search_bar}%'"
+    @search_query = "WHERE movies.title LIKE '%#{@search_bar}%' OR
+                     movies.synopsis LIKE '%#{@search_bar}%'"
   end
 
   case params[:order]
@@ -108,15 +109,18 @@ get '/movies' do
               conn.exec(movies_query)
             end
 
+  if @movies[0] == nil
+    puts "I'm sorry, your query did not return any movies."
+  end
+
   erb :'movies/index'
 end
 
 
 get '/movies/:id' do
   @movie_id = params[:id]
-  movie_studios_query = "SELECT movies.id,movies.title AS movie,movies.year,movies.rating,
-                        genres.name AS genre,
-                        studios.name AS studio
+  movie_studios_query = "SELECT movies.id,movies.title AS movie,movies.year,movies.rating, movies.synopsis,
+                        genres.name AS genre,studios.name AS studio
                   FROM movies
                     LEFT OUTER JOIN studios ON movies.studio_id = studios.id
                     JOIN genres ON movies.genre_id = genres.id
