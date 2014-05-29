@@ -35,8 +35,7 @@ end
 
 #ROUTES and VIEWS--------------------------------------------------------------------------------
 get '/' do
-  @title = "Welcome to the awesomest movies catalog ever"
-  erb :'index'
+  redirect '/movies'
 end
 
 
@@ -75,11 +74,21 @@ end
 
 get '/movies' do
   @title = "Movies page"
+  @search_bar = params["query"]
+
+  if params["query"] == nil
+    @search_query = nil
+  else
+    @search_query = "WHERE movies.title LIKE '%#{@search_bar}%'"
+  end
 
   case params[:order]
   when nil
     @order = "title ASC"
   when "rating"
+    @order = params[:order]
+    @order = "#{@order} DESC"
+  when "year"
     @order = params[:order]
     @order = "#{@order} DESC"
   else
@@ -92,6 +101,7 @@ get '/movies' do
                   FROM movies
                     JOIN studios ON movies.studio_id = studios.id
                     JOIN genres ON movies.genre_id = genres.id
+                  #{@search_query}
                   ORDER BY movies.#{@order}"
 
   @movies = db_connection do |conn|
