@@ -2,6 +2,8 @@ require 'sinatra'
 require 'rubygems'
 require 'pry'
 require 'pg'
+require 'json'
+require 'net/http'
 
 
 #METHODS--------------------------------------------------------------------------------
@@ -15,6 +17,17 @@ def db_connection
     connection.close
   end
 end
+
+if !ENV.has_key?("ROTTEN_TOMATOES_API_KEY")
+  puts "You need to set the ROTTEN_TOMATOES_API_KEY environment variable."
+  #exit 1
+end
+
+api_key = ENV["ROTTEN_TOMATOES_API_KEY"]
+uri = URI("http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=#{api_key}")
+
+response = Net::HTTP.get(uri)
+movie_data = JSON.parse(response)
 
 
 #ROUTES and VIEWS--------------------------------------------------------------------------------
@@ -91,15 +104,17 @@ get '/movies/:id' do
                     conn.exec_params(movie_query, [@movie_id])
                   end
 
+  @api_data = movie_data
+  @title = "#{@movies_info[0]["movie"]}"
+  #@poster_url = @api_data["movies"]["posters"]["original"]
 
-  @title = "Movie"
   erb :'movies/show'
 end
 
 get '/genres' do
   genre_query = "SELECT genres.id, genres.name AS genre,
                         movies.title, movies.year, movies.rating, movies.id AS movie_id
-                FROM genres JOIN movies ON movies.genre_id = genres.id
+                FROM genres RIGHT JOIN movies ON movies.genre_id = genres.id
                 ORDER BY genres.name,movies.year DESC, movies.rating"
   @genres = db_connection do |conn|
               conn.exec(genre_query)

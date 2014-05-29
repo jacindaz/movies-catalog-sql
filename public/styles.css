@@ -1,3 +1,22 @@
 body {
   margin: 2% 10%;
 }
+
+
+.table_100px_width {
+  width: 100px;
+}
+
+.table_300px_width {
+  width: 300px;
+}
+
+.table_600px_width {
+  width: 600px;
+}
+
+.movie_poster {
+  float:left;
+  height:280px;
+  padding-right:50px;
+}
