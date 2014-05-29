@@ -4,6 +4,7 @@ require 'pry'
 require 'pg'
 require 'json'
 require 'net/http'
+require 'uri'
 
 
 #METHODS--------------------------------------------------------------------------------
@@ -18,16 +19,18 @@ def db_connection
   end
 end
 
-if !ENV.has_key?("ROTTEN_TOMATOES_API_KEY")
-  puts "You need to set the ROTTEN_TOMATOES_API_KEY environment variable."
-  #exit 1
+def rotten_tomatoes_movie_hash(movie_title)
+  if !ENV.has_key?("ROTTEN_TOMATOES_API_KEY")
+    puts "You need to set the ROTTEN_TOMATOES_API_KEY environment variable."
+    #exit 1
+  end
+
+  api_key = ENV["ROTTEN_TOMATOES_API_KEY"]
+  movie_title_encode = URI.escape(movie_title)
+  uri = URI("http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=#{api_key}&q=#{movie_title_encode}&page_limit=1")
+  response = Net::HTTP.get(uri)
+  movie_data = JSON.parse(response)
 end
-
-api_key = ENV["ROTTEN_TOMATOES_API_KEY"]
-uri = URI("http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=#{api_key}")
-
-response = Net::HTTP.get(uri)
-movie_data = JSON.parse(response)
 
 
 #ROUTES and VIEWS--------------------------------------------------------------------------------
@@ -104,9 +107,9 @@ get '/movies/:id' do
                     conn.exec_params(movie_query, [@movie_id])
                   end
 
-  @api_data = movie_data
   @title = "#{@movies_info[0]["movie"]}"
-  #@poster_url = @api_data["movies"]["posters"]["original"]
+  @movie_hash = rotten_tomatoes_movie_hash(@title)
+  #@poster_url = @movie_hash["movies"]["posters"]["original"]
 
   erb :'movies/show'
 end
