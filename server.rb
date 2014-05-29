@@ -109,7 +109,7 @@ get '/movies/:id' do
 
   @title = "#{@movies_info[0]["movie"]}"
   @movie_hash = rotten_tomatoes_movie_hash(@title)
-  #@poster_url = @movie_hash["movies"]["posters"]["original"]
+  @poster_url = @movie_hash["movies"][0]["posters"]["original"]
 
   erb :'movies/show'
 end
