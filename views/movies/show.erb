@@ -27,7 +27,7 @@
 
     <h3>Actors and Actresses</h3>
     <table class="table table-hover">
-      <% @movies_info[0].each do |key,value| %>
+      <% @cast_actors_info[0].each do |key,value| %>
         <% if (key == "actor") || (key == "role") %>
           <th>
             <%= key.to_s.capitalize %>
@@ -36,7 +36,7 @@
       <% end %>
 
 
-      <% @movies_info.each do |movie| %>
+      <% @cast_actors_info.each do |movie| %>
         <tr>
           <% movie.each do |key,value| %>
             <% if key == "actor" %>

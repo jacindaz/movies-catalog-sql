@@ -91,20 +91,26 @@ end
 
 get '/movies/:id' do
   @movie_id = params[:id]
-  movie_query = "SELECT movies.id,movies.title AS movie,movies.year,movies.rating,
+  movie_studios_query = "SELECT movies.id,movies.title AS movie,movies.year,movies.rating,
                         genres.name AS genre,
-                        studios.name AS studio,
+                        studios.name AS studio
+                  FROM movies
+                    LEFT OUTER JOIN studios ON movies.studio_id = studios.id
+                    JOIN genres ON movies.genre_id = genres.id
+                  WHERE movies.id = $1"
+  cast_members_actors_query = "SELECT movies.id,
                         cast_members.character AS role,
                         actors.name AS actor, actors.id AS actor_id
                   FROM movies
-                    JOIN studios ON movies.studio_id = studios.id
-                    JOIN genres ON movies.genre_id = genres.id
-                    JOIN cast_members ON movies.id = cast_members.movie_id
-                    JOIN actors ON actors.id = cast_members.actor_id
+                    LEFT OUTER JOIN cast_members ON movies.id = cast_members.movie_id
+                    LEFT OUTER JOIN actors ON actors.id = cast_members.actor_id
                   WHERE movies.id = $1"
 
   @movies_info = db_connection do |conn|
-                    conn.exec_params(movie_query, [@movie_id])
+                    conn.exec_params(movie_studios_query, [@movie_id])
+                  end
+  @cast_actors_info = db_connection do |conn|
+                    conn.exec_params(cast_members_actors_query, [@movie_id])
                   end
 
   @title = "#{@movies_info[0]["movie"]}"
