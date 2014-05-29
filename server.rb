@@ -17,7 +17,6 @@ def db_connection
 end
 
 
-
 #ROUTES and VIEWS--------------------------------------------------------------------------------
 get '/' do
   @title = "Welcome to the awesomest movies catalog ever"
@@ -64,8 +63,7 @@ get '/movies' do
                   FROM movies
                     JOIN studios ON movies.studio_id = studios.id
                     JOIN genres ON movies.genre_id = genres.id
-                  ORDER BY movies.title ASC
-                  LIMIT 20"
+                  ORDER BY movies.title ASC"
 
   @movies = db_connection do |conn|
               conn.exec(movies_query)
@@ -96,6 +94,19 @@ get '/movies/:id' do
 
   @title = "Movie"
   erb :'movies/show'
+end
+
+get '/genres' do
+  genre_query = "SELECT genres.id, genres.name AS genre,
+                        movies.title, movies.year, movies.rating, movies.id AS movie_id
+                FROM genres JOIN movies ON movies.genre_id = genres.id
+                ORDER BY genres.name,movies.year DESC, movies.rating"
+  @genres = db_connection do |conn|
+              conn.exec(genre_query)
+            end
+
+  @title = "Movies by Genres"
+  erb :'genres/index'
 end
 
 
